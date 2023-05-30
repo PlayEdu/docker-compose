@@ -1,0 +1,100 @@
+version: "3.5"
+
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "10"
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.10.0/24
+
+volumes:
+  mysql:
+    driver: ${VOLUMES_DRIVER}
+  redis:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+  ### PlayEdu ################################################
+  playedu:
+    image: registry.cn-hangzhou.aliyuncs.com/xiaoteng/playedu-light:1.0-beta.5
+    restart: always
+    volumes:
+      - ${DATA_PATH}/logs/nginx:/var/log/nginx
+    environment:
+      - DB_HOST=${MYSQL_HOST:-mysql}
+      - DB_PORT=${MYSQL_PORT:-3306}
+      - DB_DATABASE=${MYSQL_DATABASE:-playedu}
+      - DB_USERNAME=${MYSQL_USER:-root}
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD:-playedu-root-password}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_AUTH=${REDIS_PASS:-(null)}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - MINIO_USER=${MINIO_ROOT_USER:-playedu}
+      - MINIO_PASS=${MINIO_ROOT_PASSWORD:-playedu-password}
+      - MINIO_END_POINT=${PLAYEDU_MINIO_ENDPOINT}
+      - MINIO_BUCKET=${MINIO_BUCKET:-playedu}
+      - MINIO_DOMAIN=${PLAYEDU_MINIO_DOMAIN}
+    ports:
+      - "${PLAYEDU_PC_PORT:-9800}:9800"
+      - "${PLAYEDU_ADMIN_PORT:-9900}:9900"
+    networks:
+      - backend
+    depends_on:
+      - mysql
+      - redis
+    logging: *default-logging
+
+  ### Redis ################################################
+  redis:
+    build: ./redis
+    restart: always
+    volumes:
+      - ${DATA_PATH}/redis:/data
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    networks:
+      - backend
+    logging: *default-logging
+
+  ### MySQL ################################################
+  mysql:
+    build:
+      context: ./mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-playedu}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-playedu-root-password}
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${DATA_PATH}/mysql:/var/lib/mysql
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    networks:
+      - backend
+    logging: *default-logging
+  
+  ### Minio ################################################
+  minio:
+    build:
+      context: ./minio
+    restart: always
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-playedu}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-playedu-password}
+    volumes:
+      - ${DATA_PATH}/minio/data:/data
+      - ${DATA_PATH}/minio/config:/root/.minio
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-50000}:50000"
+    networks:
+      - backend
+    logging: *default-logging
+
