@@ -31,9 +31,14 @@ docker-compose build
 
 #### 第三步、运行 `MySQL`, `Redis`, `MinIO`
 
-> 下面命令是在 playedu-docker-compose 目录执行
+> 1.下面命令是在 playedu-docker-compose 目录执行  
+> 2.下面命令 # 开头的是对下一行命令的注释，无需执行  
 
 ```
+# 复制 .env.example 并命名为 .env
+cp .env.example .env
+
+# 运行容器
 docker-compose up -d mysql redis minio
 ```
 
