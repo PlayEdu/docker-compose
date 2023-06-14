@@ -4,10 +4,10 @@
 
 此项目提供 docker-compose 一键运行 PlayEdu 。提供一下软件环境：
 
-+ PlayEdu v1.0-beta.7
-+ MySQL 5.7.42
-+ Redis 7.0.2
-+ MinIO - 由 bitnami 封装的 MinIO 发行版本
+- PlayEdu v1.0-beta.7
+- MySQL 5.7.42
+- Redis 7.0.2
+- MinIO - 由 bitnami 封装的 MinIO 发行版本
 
 ### 快速上手
 
@@ -32,7 +32,7 @@ docker-compose build
 #### 第三步、运行 `MySQL`, `Redis`, `MinIO`
 
 > 1.下面命令是在 playedu-docker-compose 目录执行  
-> 2.下面命令 # 开头的是对下一行命令的注释，无需执行  
+> 2.下面命令 # 开头的是对下一行命令的注释，无需执行
 
 ```
 # 复制 .env.example 并命名为 .env
@@ -52,14 +52,25 @@ docker-compose up -d mysql redis minio
 docker-compose up -d playedu
 ```
 
-执行完成之后，等待 15s 左右的时间，可以访问了。
+执行完成之后，等待 15s 左右的时间就可以访问了。
+
+#### 第五步、系统配置 - `MinIO` 配置
+
+浏览器打开 `http://你的服务器IP:9900` ，在登录窗口输入账号 `admin@playedu.xyz` 和密码 `playedu` 进入到后台，然后打开系统配置，选择 `MinIO` 配置，请填入下表的内容并保存：
+
+| 配置项      | 需要配置的值               |
+| ----------- | -------------------------- |
+| `AccessKey` | `username`                 |
+| `SecretKey` | `password`                 |
+| `Bucket`    | `playedu`                  |
+| `Endpoint`  | `http://minio:9000`        |
+| `Domain`    | `http://你的服务器IP:9002` |
 
 ### 链接
 
-| 平台 | 地址 | 默认账号 | 密码 |
-| --- | --- | --- | --- |
-| API 服务 | `http://你的服务器IP:9700` | - | - |
-| PC 学员端口 | `http://你的服务器IP:9800` | - | - |
-| 后台管理端口 | `http://你的服务器IP:9900` | `admin@playedu.xyz` | `playedu` |
-| MinIO 管理端口 | `http://你的服务器IP:9002` | `username` | `password` |
-
+| 平台           | 地址                       | 默认账号            | 密码       |
+| -------------- | -------------------------- | ------------------- | ---------- |
+| API 服务       | `http://你的服务器IP:9700` | -                   | -          |
+| PC 学员端口    | `http://你的服务器IP:9800` | -                   | -          |
+| 后台管理端口   | `http://你的服务器IP:9900` | `admin@playedu.xyz` | `playedu`  |
+| MinIO 管理端口 | `http://你的服务器IP:9002` | `username`          | `password` |
