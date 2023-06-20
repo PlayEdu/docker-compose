@@ -63,7 +63,7 @@ docker-compose up -d playedu
 | `AccessKey` | `username`                 |
 | `SecretKey` | `password`                 |
 | `Bucket`    | `playedu`                  |
-| `Endpoint`  | `http://minio:9000`        |
+| `Endpoint`  | `http://你的服务器IP:9000`        |
 | `Domain`    | `http://你的服务器IP:9002` |
 
 ### 链接
