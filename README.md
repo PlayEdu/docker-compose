@@ -4,7 +4,7 @@
 
 此项目提供 docker-compose 一键运行 PlayEdu 。提供一下软件环境：
 
-- PlayEdu v1.0-beta.7
+- PlayEdu v1.1
 - MySQL 5.7.42
 - Redis 7.0.2
 - MinIO - 由 bitnami 封装的 MinIO 发行版本
@@ -72,5 +72,6 @@ docker-compose up -d playedu
 | -------------- | -------------------------- | ------------------- | ---------- |
 | API 服务       | `http://你的服务器IP:9700` | -                   | -          |
 | PC 学员端口    | `http://你的服务器IP:9800` | -                   | -          |
+| H5 学员端口    | `http://你的服务器IP:9801` | -                   | -          |
 | 后台管理端口   | `http://你的服务器IP:9900` | `admin@playedu.xyz` | `playedu`  |
 | MinIO 管理端口 | `http://你的服务器IP:9002` | `username`          | `password` |
