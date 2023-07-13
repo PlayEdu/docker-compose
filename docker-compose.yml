@@ -59,7 +59,7 @@ services:
     volumes:
       - ./data/redis:/data
     ports:
-      - "${REDIS_PORT:-6379}:6379"
+      - "${REDIS_PORT:-16379}:6379"
     networks:
       - backend
     logging: *default-logging
@@ -75,7 +75,7 @@ services:
     volumes:
       - ./data/mysql:/var/lib/mysql
     ports:
-      - "${MYSQL_PORT:-3306}:3306"
+      - "${MYSQL_PORT:-33063}:3306"
     networks:
       - backend
     logging: *default-logging
@@ -91,8 +91,8 @@ services:
     volumes:
       - ./data/minio/data:/data
     ports:
-      - "${MINIO_PORT:-9000}:9000"
-      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+      - "${MINIO_PORT:-9002}:9000"
+      - "${MINIO_CONSOLE_PORT:-50002}:9001"
     networks:
       - backend
     logging: *default-logging

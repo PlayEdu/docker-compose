@@ -63,15 +63,15 @@ docker-compose up -d playedu
 | `AccessKey` | `username`                 |
 | `SecretKey` | `password`                 |
 | `Bucket`    | `playedu`                  |
-| `Endpoint`  | `http://你的服务器IP:9000`        |
-| `Domain`    | `http://你的服务器IP:9000` |
+| `Endpoint`  | `http://你的服务器IP:9002` |
+| `Domain`    | `http://你的服务器IP:9002` |
 
 ### 链接
 
-| 平台           | 地址                       | 默认账号            | 密码       |
-| -------------- | -------------------------- | ------------------- | ---------- |
-| API 服务       | `http://你的服务器IP:9700` | -                   | -          |
-| PC 学员端口    | `http://你的服务器IP:9800` | -                   | -          |
-| H5 学员端口    | `http://你的服务器IP:9801` | -                   | -          |
-| 后台管理端口   | `http://你的服务器IP:9900` | `admin@playedu.xyz` | `playedu`  |
-| MinIO 管理端口 | `http://你的服务器IP:9002` | `username`          | `password` |
+| 平台           | 地址                        | 默认账号            | 密码       |
+| -------------- | --------------------------- | ------------------- | ---------- |
+| API 服务       | `http://你的服务器IP:9700`  | -                   | -          |
+| PC 学员端口    | `http://你的服务器IP:9800`  | -                   | -          |
+| H5 学员端口    | `http://你的服务器IP:9801`  | -                   | -          |
+| 后台管理端口   | `http://你的服务器IP:9900`  | `admin@playedu.xyz` | `playedu`  |
+| MinIO 管理端口 | `http://你的服务器IP:50002` | `username`          | `password` |
