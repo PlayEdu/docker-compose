@@ -64,7 +64,7 @@ docker-compose up -d playedu
 | `SecretKey` | `password`                 |
 | `Bucket`    | `playedu`                  |
 | `Endpoint`  | `http://你的服务器IP:9000`        |
-| `Domain`    | `http://你的服务器IP:9002` |
+| `Domain`    | `http://你的服务器IP:9000` |
 
 ### 链接
 
