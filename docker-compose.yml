@@ -9,10 +9,10 @@ x-logging: &default-logging
 networks:
   backend:
     driver: bridge
-    # ipam:
-    #   driver: default
-    #   config:
-    #     - subnet: 172.10.10.0/24
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.10.0/24
 
 volumes:
   mysql:
@@ -25,10 +25,10 @@ volumes:
 services:
   ### PlayEdu ################################################
   playedu:
-    image: registry.cn-hangzhou.aliyuncs.com/playedu/light:1.1
+    image: registry.cn-hangzhou.aliyuncs.com/playedu/light:1.1.1
     restart: always
-    volumes:
-      - ./data/logs/nginx:/var/log/nginx
+    # volumes:
+    #   - ./data/logs/nginx:/var/log/nginx
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
@@ -56,8 +56,8 @@ services:
   redis:
     build: ./redis
     restart: always
-    volumes:
-      - ./data/redis:/data
+    # volumes:
+    #   - ./data/redis:/data
     ports:
       - "${REDIS_PORT:-16379}:6379"
     networks:
@@ -72,8 +72,8 @@ services:
       - MYSQL_DATABASE=playedu
       - MYSQL_ROOT_PASSWORD=playeduxyz
       - TZ=UTC
-    volumes:
-      - ./data/mysql:/var/lib/mysql
+    # volumes:
+    #   - ./data/mysql:/var/lib/mysql
     ports:
       - "${MYSQL_PORT:-33063}:3306"
     networks:
@@ -88,8 +88,8 @@ services:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER:-username}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-password}
       - MINIO_DEFAULT_BUCKETS=${MINIO_BUCKETS:-playedu:public}
-    volumes:
-      - ./data/minio/data:/data
+    # volumes:
+    #   - ./data/minio/data:/data
     ports:
       - "${MINIO_PORT:-9002}:9000"
       - "${MINIO_CONSOLE_PORT:-50002}:9001"
