@@ -1,6 +1,4 @@
-FROM mysql:5.7.42
-
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+FROM mysql:8.1
 
 # 时区配置
 ARG TZ=UTC

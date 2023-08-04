@@ -1,29 +1,6 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Version 4541
-#
-# http://www.sequelpro.com/
-# https://github.com/sequelpro/sequelpro
-#
-# Host: 127.0.0.1 (MySQL 5.6.51)
-# Database: playedu
-# Generation Time: 2023-04-06 03:00:20 +0000
-# ************************************************************
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
 # Dump of table admin_logs
 # ------------------------------------------------------------
-
-CREATE TABLE `admin_logs` (
+CREATE TABLE IF NOT EXISTS `admin_logs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员ID',
   `module` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模块',
@@ -33,15 +10,12 @@ CREATE TABLE `admin_logs` (
   `ip_area` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '地址',
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `a_m_o` (`admin_id`,`module`,`opt`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
+  KEY `a_m_o` (`admin_id`, `module`, `opt`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 # Dump of table admin_permissions
 # ------------------------------------------------------------
-
-CREATE TABLE `admin_permissions` (
+CREATE TABLE IF NOT EXISTS `admin_permissions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '类型[行为:action,数据:data]',
   `group_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '分组',
@@ -50,26 +24,20 @@ CREATE TABLE `admin_permissions` (
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'slug',
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 # Dump of table admin_role_permission
 # ------------------------------------------------------------
-
-CREATE TABLE `admin_role_permission` (
+CREATE TABLE IF NOT EXISTS `admin_role_permission` (
   `role_id` int(11) unsigned NOT NULL DEFAULT '0',
   `perm_id` int(10) unsigned NOT NULL DEFAULT '0',
   KEY `role_id` (`role_id`),
   KEY `perm_id` (`perm_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table admin_roles
 # ------------------------------------------------------------
-
-CREATE TABLE `admin_roles` (
+CREATE TABLE IF NOT EXISTS `admin_roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '角色名',
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'slug',
@@ -77,34 +45,35 @@ CREATE TABLE `admin_roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
-INSERT INTO `admin_roles` (`name`, `slug`, `created_at`, `updated_at`)
+INSERT INTO
+  `admin_roles` (`name`, `slug`, `created_at`, `updated_at`)
 VALUES
-    ('超级管理角色', 'super-role', '2023-02-24 06:19:15', '2023-02-24 06:19:15');
-
-
+  (
+    '超级管理角色',
+    'super-role',
+    '2023-02-24 06:19:15',
+    '2023-02-24 06:19:15'
+  );
 
 # Dump of table admin_user_role
 # ------------------------------------------------------------
-
-CREATE TABLE `admin_user_role` (
+CREATE TABLE IF NOT EXISTS `admin_user_role` (
   `admin_id` int(11) unsigned NOT NULL DEFAULT '0',
   `role_id` int(10) unsigned NOT NULL DEFAULT '0',
   KEY `admin_id` (`admin_id`),
   KEY `role_id` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-INSERT INTO `admin_user_role` (`admin_id`, `role_id`)
+INSERT INTO
+  `admin_user_role` (`admin_id`, `role_id`)
 VALUES
-    (1, 1);
-
-
+  (1, 1);
 
 # Dump of table admin_users
 # ------------------------------------------------------------
-
-CREATE TABLE `admin_users` (
+CREATE TABLE IF NOT EXISTS `admin_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '姓名',
   `email` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮箱',
@@ -118,18 +87,38 @@ CREATE TABLE `admin_users` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `administrators_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
-INSERT INTO `admin_users` (`name`, `email`, `password`, `salt`, `login_ip`, `login_at`, `is_ban_login`, `login_times`, `created_at`, `updated_at`)
+INSERT INTO
+  `admin_users` (
+    `name`,
+    `email`,
+    `password`,
+    `salt`,
+    `login_ip`,
+    `login_at`,
+    `is_ban_login`,
+    `login_times`,
+    `created_at`,
+    `updated_at`
+  )
 VALUES
-    ('超级管理员', 'admin@playedu.xyz', 'd771587aa711961304fa8c1a5273f491', 'VROkTh', '', '2023-04-06 16:51:17', 0, 0, '2023-02-19 18:10:12', '2023-04-06 16:51:17');
-
-
+  (
+    '超级管理员',
+    'admin@playedu.xyz',
+    'd771587aa711961304fa8c1a5273f491',
+    'VROkTh',
+    '',
+    '2023-04-06 16:51:17',
+    0,
+    0,
+    '2023-02-19 18:10:12',
+    '2023-04-06 16:51:17'
+  );
 
 # Dump of table app_config
 # ------------------------------------------------------------
-
-CREATE TABLE `app_config` (
+CREATE TABLE IF NOT EXISTS `app_config` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `group_name` varchar(24) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '分组',
   `name` varchar(24) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
@@ -144,14 +133,11 @@ CREATE TABLE `app_config` (
   `is_hidden` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1显示,0否',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_config_key_unique` (`key_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 # Dump of table course_chapters
 # ------------------------------------------------------------
-
-CREATE TABLE `course_chapters` (
+CREATE TABLE IF NOT EXISTS `course_chapters` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `course_id` int(11) NOT NULL DEFAULT '0' COMMENT '课程ID',
   `name` varchar(64) NOT NULL DEFAULT '' COMMENT '章节名',
@@ -159,26 +145,20 @@ CREATE TABLE `course_chapters` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table course_department
 # ------------------------------------------------------------
-
-CREATE TABLE `course_department` (
+CREATE TABLE IF NOT EXISTS `course_department` (
   `course_id` int(11) NOT NULL DEFAULT '0',
   `dep_id` int(11) NOT NULL DEFAULT '0',
   KEY `course_id` (`course_id`),
   KEY `dep_id` (`dep_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table course_hour
 # ------------------------------------------------------------
-
-CREATE TABLE `course_hour` (
+CREATE TABLE IF NOT EXISTS `course_hour` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `course_id` int(11) NOT NULL DEFAULT '0' COMMENT '课程ID',
   `chapter_id` int(11) NOT NULL DEFAULT '0' COMMENT '章节ID',
@@ -190,14 +170,11 @@ CREATE TABLE `course_hour` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table courses
 # ------------------------------------------------------------
-
-CREATE TABLE `courses` (
+CREATE TABLE IF NOT EXISTS `courses` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '课程标题',
   `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '课程封面',
@@ -210,14 +187,11 @@ CREATE TABLE `courses` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table departments
 # ------------------------------------------------------------
-
-CREATE TABLE `departments` (
+CREATE TABLE IF NOT EXISTS `departments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL DEFAULT '' COMMENT '部门名',
   `parent_id` int(11) NOT NULL COMMENT '父id',
@@ -226,14 +200,11 @@ CREATE TABLE `departments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table resource_categories
 # ------------------------------------------------------------
-
-CREATE TABLE `resource_categories` (
+CREATE TABLE IF NOT EXISTS `resource_categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `parent_chain` varchar(2550) NOT NULL DEFAULT '',
@@ -242,51 +213,39 @@ CREATE TABLE `resource_categories` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table resource_category
 # ------------------------------------------------------------
-
-CREATE TABLE `resource_category` (
+CREATE TABLE IF NOT EXISTS `resource_category` (
   `cid` int(11) NOT NULL DEFAULT '0',
   `rid` int(11) NOT NULL,
   KEY `cid` (`cid`),
   KEY `rid` (`rid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table resource_course_category
 # ------------------------------------------------------------
-
-CREATE TABLE `resource_course_category` (
+CREATE TABLE IF NOT EXISTS `resource_course_category` (
   `course_id` int(11) NOT NULL DEFAULT '0',
   `category_id` int(11) NOT NULL DEFAULT '0',
   KEY `course_id` (`course_id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table resource_videos
 # ------------------------------------------------------------
-
-CREATE TABLE `resource_videos` (
+CREATE TABLE IF NOT EXISTS `resource_videos` (
   `rid` int(11) unsigned NOT NULL,
   `poster` varchar(255) NOT NULL DEFAULT '' COMMENT '封面',
   `duration` int(10) unsigned NOT NULL COMMENT '视频时长[s]',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   UNIQUE KEY `rid` (`rid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table resources
 # ------------------------------------------------------------
-
-CREATE TABLE `resources` (
+CREATE TABLE IF NOT EXISTS `resources` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `admin_id` int(11) NOT NULL DEFAULT '0',
   `type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '类型',
@@ -302,14 +261,11 @@ CREATE TABLE `resources` (
   `is_hidden` tinyint(4) NOT NULL DEFAULT '0' COMMENT '隐藏[0:否,1:是]',
   PRIMARY KEY (`id`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 # Dump of table user_course_hour_records
 # ------------------------------------------------------------
-
-CREATE TABLE `user_course_hour_records` (
+CREATE TABLE IF NOT EXISTS `user_course_hour_records` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `course_id` int(11) NOT NULL DEFAULT '0',
@@ -322,15 +278,12 @@ CREATE TABLE `user_course_hour_records` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `u_h_c_id` (`user_id`,`hour_id`,`course_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+  KEY `u_h_c_id` (`user_id`, `hour_id`, `course_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table user_course_records
 # ------------------------------------------------------------
-
-CREATE TABLE `user_course_records` (
+CREATE TABLE IF NOT EXISTS `user_course_records` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `course_id` int(11) NOT NULL DEFAULT '0',
@@ -342,26 +295,20 @@ CREATE TABLE `user_course_records` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table user_department
 # ------------------------------------------------------------
-
-CREATE TABLE `user_department` (
+CREATE TABLE IF NOT EXISTS `user_department` (
   `user_id` int(11) unsigned NOT NULL DEFAULT '0',
   `dep_id` int(11) unsigned NOT NULL DEFAULT '0',
   KEY `user_id` (`user_id`),
   KEY `dep_id` (`dep_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table user_learn_duration_records
 # ------------------------------------------------------------
-
-CREATE TABLE `user_learn_duration_records` (
+CREATE TABLE IF NOT EXISTS `user_learn_duration_records` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `created_date` date NOT NULL,
@@ -371,29 +318,23 @@ CREATE TABLE `user_learn_duration_records` (
   `course_id` int(11) NOT NULL DEFAULT '0',
   `hour_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `u_d` (`user_id`,`created_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+  KEY `u_d` (`user_id`, `created_date`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table user_learn_duration_stats
 # ------------------------------------------------------------
-
-CREATE TABLE `user_learn_duration_stats` (
+CREATE TABLE IF NOT EXISTS `user_learn_duration_stats` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `duration` bigint(20) NOT NULL DEFAULT '0',
   `created_date` date NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `u_d` (`user_id`,`created_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+  KEY `u_d` (`user_id`, `created_date`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table user_login_records
 # ------------------------------------------------------------
-
-CREATE TABLE `user_login_records` (
+CREATE TABLE IF NOT EXISTS `user_login_records` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `jti` varchar(64) NOT NULL DEFAULT '' COMMENT 'JTI',
@@ -408,14 +349,11 @@ CREATE TABLE `user_login_records` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `jti` (`jti`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table user_upload_image_logs
 # ------------------------------------------------------------
-
-CREATE TABLE `user_upload_image_logs` (
+CREATE TABLE IF NOT EXISTS `user_upload_image_logs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `typed` varchar(32) NOT NULL DEFAULT '' COMMENT '图片类型',
@@ -427,14 +365,11 @@ CREATE TABLE `user_upload_image_logs` (
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '文件名',
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 # Dump of table users
 # ------------------------------------------------------------
-
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(32) NOT NULL DEFAULT '' COMMENT '邮件',
   `name` varchar(24) NOT NULL DEFAULT '' COMMENT '真实姓名',
@@ -455,14 +390,50 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
+DROP TABLE IF EXISTS `admin_logs`;
 
+CREATE TABLE IF NOT EXISTS `admin_logs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '管理员ID',
+  `admin_name` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '管理员姓名',
+  `module` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模块',
+  `title` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求方法标题',
+  `opt` int(2) NOT NULL DEFAULT '0' COMMENT '操作指令（0其它 1新增 2修改 3删除 4登录 5退出登录）',
+  `method` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求方法',
+  `request_method` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求方式POST,GET,PUT,DELETE',
+  `url` varchar(266) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求URL',
+  `param` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '请求参数',
+  `result` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '返回参数',
+  `ip` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'ip',
+  `ip_area` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '地址',
+  `error_msg` mediumtext COLLATE utf8mb4_unicode_ci COMMENT '错误消息',
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `a_m_o` (`admin_id`, `module`, `opt`)
+) ENGINE = InnoDB AUTO_INCREMENT = 515 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `course_attachment` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `course_id` int(11) NOT NULL DEFAULT '0' COMMENT '课程ID',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '升序',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '附件名',
+  `type` varchar(20) NOT NULL DEFAULT '' COMMENT '附件类型',
+  `rid` int(11) NOT NULL DEFAULT '0' COMMENT '资源id',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `course_id` (`course_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE IF NOT EXISTS `course_attachment_download_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '学员ID',
+  `course_id` int(11) NOT NULL DEFAULT '0' COMMENT '课程ID',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '课程标题',
+  `courser_attachment_id` int(11) NOT NULL DEFAULT '0' COMMENT '课程附件id',
+  `rid` int(11) NOT NULL DEFAULT '0' COMMENT '资源id',
+  `ip` varchar(45) NOT NULL DEFAULT '' COMMENT '下载ip',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
