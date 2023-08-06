@@ -9,10 +9,9 @@
 - Redis 7.0.2
 - MinIO - 由 bitnami 封装的 MinIO 发行版本
 
-### 支持
+### 注意
 
-- [x] amd64
-- [x] arm64
+**本项目提供 `linux/amd64` 的 platform 运行。如果您是 `linux/arm64` 的话请将 `docker-compose.yml` 中的 `playedu/light` 修改为 `playedu/light-arm64` 。**
 
 ### 快速上手
 
