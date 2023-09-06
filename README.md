@@ -2,16 +2,14 @@
 
 ### 背景
 
-此项目提供 docker-compose 一键运行 PlayEdu 。提供一下软件环境：
+此项目提供 `docker-compose` 一键运行 `PlayEdu` 。提供一下软件环境：
 
-- PlayEdu v1.1
+- PlayEdu v1.3
 - MySQL 5.7.42
 - Redis 7.0.2
 - MinIO - 由 bitnami 封装的 MinIO 发行版本
 
 ### 注意
-
-**本项目提供 `linux/amd64` 的 platform 运行。如果您是 `linux/arm64` 的话请将 `docker-compose.yml` 中的 `playedu/light` 修改为 `playedu/light-arm64` 。**
 
 ### 快速上手
 
@@ -36,13 +34,28 @@ docker-compose build
 #### 第三步、运行 `MySQL`, `Redis`, `MinIO`
 
 > 1.下面命令是在 playedu-docker-compose 目录执行  
-> 2.下面命令 # 开头的是对下一行命令的注释，无需执行
 
 ```
-# 复制 .env.example 并命名为 .env
+# #### 这里是注释的话，无需执行 ####
+# 命令解释：复制 .env.example 并命名为 .env
+# #### 这里是注释的话，无需执行 ####
 cp .env.example .env
 
-# 运行容器
+# #### 这里是注释的话，无需执行 ####
+# .env.example 是我们预置的默认的运行环境变量，比如：运行的端口号、数据库名等
+# 如果您对这一快不很熟悉的话，建议您无需修改 .env 文件内容，因为修改了内容
+# 按照本文下面的流程可能就无法走通
+# #### 这里是注释的话，无需执行 ####
+
+# #### 这里是注释的话，无需执行 ####
+# 命令解释：给 data 授权可读、可写、可执行权限
+# data 目录将会挂载到容器以用来数据化持久存储(更多知识请自行了解 docker 数据卷)
+# #### 这里是注释的话，无需执行 ####
+chmod a+rwx data
+
+# #### 这里是注释的话，无需执行 ####
+# 命令解释：运行容器
+# #### 这里是注释的话，无需执行 ####
 docker-compose up -d mysql redis minio
 ```
 

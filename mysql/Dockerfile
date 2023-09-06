@@ -8,9 +8,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ >/etc/timezone &&
 # 复制自定义的my.cnf
 COPY my.cnf /etc/mysql/conf.d/my.cnf
 
-# 初始化数据库
-COPY docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
-
 # my.cnf只读权限
 RUN chmod 0444 /etc/mysql/conf.d/my.cnf
 
