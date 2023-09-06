@@ -16,7 +16,7 @@
 #### 第一步、克隆本仓库
 
 ```
-git clone git@github.com:PlayEdu/docker-compose.git playedu-docker-compose
+git clone https://github.com/PlayEdu/docker-compose.git playedu-docker-compose
 ```
 
 #### 第二步、构建镜像
@@ -28,7 +28,7 @@ git clone git@github.com:PlayEdu/docker-compose.git playedu-docker-compose
 cd playedu-docker-compose
 
 # 构建镜像
-docker-compose build
+sudo docker-compose build
 ```
 
 #### 第三步、运行 `MySQL`, `Redis`, `MinIO`
@@ -52,7 +52,7 @@ chmod a+rwx data
 
 # #### 这里是注释的话，无需执行 ####
 # 命令解释：运行容器
-docker-compose up -d mysql redis minio
+sudo docker-compose up -d mysql redis minio
 ```
 
 执行上述命令会很快返回结果，但是这并不意味着上述三个软件就已经成功的运行了。它们的初始化运行都需要一段过程，这里我们稍微等待 1-2 分钟的时间（机器配置高的话可能时间更短）。
@@ -62,7 +62,7 @@ docker-compose up -d mysql redis minio
 > 下面命令是在 playedu-docker-compose 目录执行
 
 ```
-docker-compose up -d playedu
+sudo docker-compose up -d playedu
 ```
 
 执行完成之后，等待 15s 左右的时间就可以访问了。
