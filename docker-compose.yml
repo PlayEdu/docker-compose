@@ -85,7 +85,7 @@ services:
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-password}
       - MINIO_DEFAULT_BUCKETS=${MINIO_BUCKETS:-playedu:public}
     volumes:
-      - ./data/minio/data:/data
+      - ./data/minio/data:/bitnami/minio/data
     ports:
       - "${MINIO_PORT:-9002}:9000"
       - "${MINIO_CONSOLE_PORT:-50002}:9001"
