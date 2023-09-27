@@ -4,7 +4,7 @@
 
 此项目提供 `docker-compose` 一键运行 `PlayEdu` 。提供一下软件环境：
 
-- PlayEdu v1.3
+- PlayEdu v1.4
 - MySQL 5.7.42
 - Redis 7.0.2
 - MinIO - 由 bitnami 封装的 MinIO 发行版本
