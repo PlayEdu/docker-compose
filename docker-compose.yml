@@ -24,7 +24,7 @@ volumes:
 
 services:
   playedu:
-    image: registry.cn-hangzhou.aliyuncs.com/playedu/light:1.4
+    image: registry.cn-hangzhou.aliyuncs.com/playedu/light:v1.5
     restart: always
     volumes:
       - ./data/logs/nginx:/var/log/nginx
@@ -37,6 +37,8 @@ services:
       - REDIS_HOST=redis
       - REDIS_PASS=playeduxyz
       - REDIS_PORT=6379
+      - REDIS_DB=2
+      - SA_TOKEN_IS_CONCURRENT=false
       - SA_TOKEN_JWT_SECRET_KEY=${PLAYEDU_JWT_KEY:-playeduxyz}
     ports:
       - "${PLAYEDU_API_PORT:-9700}:80"
