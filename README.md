@@ -16,7 +16,7 @@
 #### 第一步、克隆本仓库
 
 ```
-git clone -b 1.5 https://github.com/PlayEdu/docker-compose.git playedu-docker-compose
+git clone -b 1.5.1 https://github.com/PlayEdu/docker-compose.git playedu-docker-compose
 ```
 
 #### 第二步、构建镜像
