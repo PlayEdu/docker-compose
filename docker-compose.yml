@@ -24,7 +24,7 @@ volumes:
 
 services:
   playedu:
-    image: registry.cn-hangzhou.aliyuncs.com/playedu/light:1.5.1
+    image: registry.cn-hangzhou.aliyuncs.com/playedu/light:1.5.2
     restart: always
     volumes:
       - ./data/logs/nginx:/var/log/nginx
