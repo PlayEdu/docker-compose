@@ -4,7 +4,7 @@
 
 此项目提供 `docker-compose` 一键运行 `PlayEdu` 。提供一下软件环境：
 
-- PlayEdu v1.5
+- PlayEdu v1.6
 - MySQL 5.7.42
 - Redis 7.0.2
 - MinIO - 由 bitnami 封装的 MinIO 发行版本
@@ -16,7 +16,7 @@
 #### 第一步、克隆本仓库
 
 ```
-git clone -b 1.5.1 https://github.com/PlayEdu/docker-compose.git playedu-docker-compose
+git clone -b 1.6 https://github.com/PlayEdu/docker-compose.git playedu-docker-compose
 ```
 
 #### 第二步、构建镜像
